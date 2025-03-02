@@ -11,8 +11,15 @@ const useFetch = (url) =>{
               setLoading(true)
               try {
                 const res = await axios.get(url);
-                 setData(res.data);
+                if(Array.isArray(res.data)){
+                   setData(res.data);
+                }else if(res.data && Array.isArray(res.data.hotels)){
+                    setData(res.data.hotels);
+                }else{
+                   setData([]);
+                }
               } catch (error) {
+                 console.error("fetch error:", error);
                  setError(error)  
               }
               setLoading(false);
