@@ -16,6 +16,8 @@ const Login = () => {
   const navigate = useNavigate();
 
 
+const backendurl = "http://localhost:8800/api";
+
   const handleChange = (e)=>{
        setCredentials(prev=>({...prev , [e.target.id]:e.target.value}))
   }
@@ -24,7 +26,7 @@ const Login = () => {
       e.preventDefault()
       dispatch({type : "LOGIN_START"})
       try {
-        const res = await axios.post("/auth/login", credentials);
+        const res = await axios.post(`${backendurl}/auth/login`, credentials);
         dispatch({type:"LOGIN_SUCCESS", payload : res.data.details });
         navigate("/");
       } catch (error) {
